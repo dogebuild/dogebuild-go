@@ -1,0 +1,30 @@
+language: python
+dist: xenial
+sudo: true
+python:
+- '3.7'
+- '3.8'
+install:
+- python setup.py install
+before_script:
+- pip install nox
+script:
+- nox
+stages:
+- test
+- name: deploy
+  if: branch = master
+jobs:
+  include:
+  - stage: test
+  - stage: deploy
+    python: '3.7'
+    script: skip
+    deploy:
+      provider: pypi
+      username: '__token__'
+      password:
+        secure: fill value with result of command: travis encrypt --pro
+      on:
+        distributions: sdist bdist_wheel
+        repo: Fill repo name
