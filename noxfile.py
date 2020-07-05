@@ -20,7 +20,7 @@ FLAKE8_IGNORE = [
 @nox.session()
 @nox.parametrize(
     "directory",
-    [],
+    ["simple_app"],
 )
 @nox.parametrize("doge_version", ["0.3.2"])
 def tests(session, directory, doge_version):
